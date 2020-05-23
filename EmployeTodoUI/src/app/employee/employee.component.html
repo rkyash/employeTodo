@@ -1,0 +1,219 @@
+<div class="limiter">
+  <div class="container-table100">
+    <div class="wrap-table100">
+      <button type="button" class="btn btn-primary pull-right" (click)="addEmployeeModel(employeeModel,null)">
+        Add Employee
+      </button>
+
+      <div class="table100">
+        <table>
+          <thead>
+            <tr class="table100-head">
+              <th class="column1">S.No</th>
+              <th class="column2">Employee Name</th>
+              <th class="column3">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of emplist; let i=index;">
+              <td style="width: 14px;" class="column1">{{i+1}}</td>
+              <td class="column2">
+                <a (click)="getEmpTask(item)">{{item.emp_name}}</a></td>
+
+              <td class="column3">
+                <button type="button" class="btn btn-success" (click)="addEmployeeModel(employeeModel,item)">
+                  Edit
+                </button>
+                <button type="button" class="btn btn-danger" (click)="deleteEmployee(item)">
+                  Delete
+                </button>
+              </td>
+
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- *ngIf="isEmpTaskAvailabe" -->
+<div class="limiter">
+  <div class="container-table100">
+    <div class="wrap-table100">
+      <button type="button" class="btn btn-primary pull-right" (click)="openEmpTaskModel(taskModel,null)">
+        Add Task
+      </button>
+
+      <div class="table100">
+        <table>
+          <thead>
+            <tr class="table100-head">
+              <th class="column1">S.No</th>
+              <th class="column2">Title</th>
+              <th class="column3">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of empTasklist; let i=index;">
+              <td style="width: 14px;" class="column1">{{i+1}}</td>
+              <td class="column2">{{item.title}}</td>
+              <td class="column3">
+                <button type="button" class="btn btn-success" (click)="openEmpTaskModel(taskModel,item)">
+                  Edit
+                </button>
+                <button type="button" class="btn btn-danger" (click)="deleteEmployeeTask(item)">
+                  Delete
+                </button>
+              </td>
+
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- *ngIf="isEmpTasknotAvailabe" -->
+<!-- <div class="row">
+  <div class="col-md-4"></div>
+  <div class="text-center" class="col-md-4">
+    <button type="button" class="btn btn-primary pull-right" (click)="openEmpTaskModel(taskModel,null)">
+      Add Task
+    </button>
+    <h2>Task Not Asgin </h2>
+  </div>
+  <div class="col-md-4"></div>
+
+</div> -->
+
+
+
+
+<ng-template #employeeModel let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{empModelTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #empFrom="ngForm">
+
+      <div class="row">
+
+        <!--./col-xl-6-->
+        <div class="col-xs-12 col-md-6 col-xl-6">
+
+          <div class="form-group mb-3">
+            <label>Employee Name</label>
+
+            <input type="text" class="form-control" id="Employee" name="Employee" [(ngModel)]="employee.emp_name"
+              #Employee="ngModel" placeholder="Employee Name" required />
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="empAction()">Save</button>
+  </div>
+</ng-template>
+
+
+<ng-template #taskModel let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{empTaskModelTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #empTaskFrom="ngForm">
+
+      <div class="row">
+
+        <!--./col-xl-6-->
+        <div class="col-xs-12 col-md-6 col-xl-6">
+
+          <div class="col-mb-3">
+            <label>Title</label>
+
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="employeeTask.title"
+              #title="ngModel" placeholder="Enter Title" required />
+
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Description</label>
+
+            <textarea class="form-control" id="Description" name="Description" [(ngModel)]="employeeTask.description"
+              #Description="ngModel" placeholder="Enter Description" required></textarea>
+
+          </div>
+
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-xl-6">
+
+          <div class="form-group mb-3">
+            <label>Priority level</label>
+
+            <select name="prioritylevel_idss" id="prioritylevel_ids" [(ngModel)]="employeeTask.prioritylevel_id"
+              #prioritylevel_idss="ngModel" required>
+              <option value="">--Select Priority level--</option>
+              <option [ngValue]="opt.id" *ngFor="let opt of priorityOrState.prioritylevels">{{opt.priority_level}}
+              </option>
+            </select>
+
+          </div>
+
+          <div class="form-group mb-3">
+            <label>State</label>
+
+            <select name="State" id="State" [(ngModel)]="employeeTask.state_id" #State="ngModel" required>
+              <option value="">--Select State--</option>
+              <option [ngValue]="opt.id" *ngFor="let opt of priorityOrState.states">{{opt.state_name}}
+              </option>
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="col-xs-12 col-md-6 col-xl-6">
+
+          <div class="form-group mb-3">
+            <label>Estimate</label>
+
+            <input type="text" class="form-control" id="Estimate" name="Estimate" [(ngModel)]="employeeTask.estimate"
+              #Estimate="ngModel" placeholder="Enter Estimate" required />
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="empTaskAction()">Save</button>
+  </div>
+</ng-template>
