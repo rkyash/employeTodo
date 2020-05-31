@@ -64,7 +64,7 @@
               <td class="column2">{{item.title}}</td>
               <td class="column3">
                 <button type="button" class="btn btn-success" (click)="openEmpTaskModel(taskModel,item)">
-                  Edit
+                  View/Edit
                 </button>
                 <button type="button" class="btn btn-danger" (click)="deleteEmployeeTask(item)">
                   Delete
@@ -171,8 +171,8 @@
           <div class="form-group mb-3">
             <label>Priority level</label>
 
-            <select name="prioritylevel_idss" id="prioritylevel_ids" [(ngModel)]="employeeTask.prioritylevel_id"
-              #prioritylevel_idss="ngModel" required>
+            <select class="form-control" name="prioritylevel_idss" id="prioritylevel_ids"
+              [(ngModel)]="employeeTask.prioritylevel_id" #prioritylevel_idss="ngModel" required>
               <option value="">--Select Priority level--</option>
               <option [ngValue]="opt.id" *ngFor="let opt of priorityOrState.prioritylevels">{{opt.priority_level}}
               </option>
@@ -183,7 +183,8 @@
           <div class="form-group mb-3">
             <label>State</label>
 
-            <select name="State" id="State" [(ngModel)]="employeeTask.state_id" #State="ngModel" required>
+            <select class="form-control" name="State" id="State" [(ngModel)]="employeeTask.state_id" #State="ngModel"
+              required>
               <option value="">--Select State--</option>
               <option [ngValue]="opt.id" *ngFor="let opt of priorityOrState.states">{{opt.state_name}}
               </option>
